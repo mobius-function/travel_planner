@@ -26,7 +26,7 @@ export default function TextBoxInput() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="How can I help you today?"
+          placeholder="Where would you like to go, and when?"
           className="w-full px-4 py-4 pr-14 bg-transparent resize-none outline-none text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 dark:placeholder-zinc-500 rounded-2xl min-h-[60px] max-h-[200px]"
           rows={1}
           style={{
