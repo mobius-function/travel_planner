@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-
-interface Message {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
-}
+import { Message } from '@/app/types/chat';
 
 export async function POST(request: Request) {
   try {

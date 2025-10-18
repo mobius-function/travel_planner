@@ -3,11 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-}
+import { Message } from '@/app/types/chat';
 
 export default function TextBoxInput() {
   const [input, setInput] = useState('');
@@ -126,12 +122,17 @@ export default function TextBoxInput() {
                     {msg.role === 'user' ? 'U' : 'AI'}
                   </span>
                 </div>
-                <div className="flex-1 prose dark:prose-invert max-w-none
-                  prose-headings:mt-6 prose-headings:mb-3 first:prose-headings:mt-0
-                  prose-p:my-3 prose-p:leading-relaxed
-                  prose-ul:my-3 prose-ul:space-y-1
-                  prose-li:my-1
-                  prose-strong:font-semibold">
+                <div className="flex-1 prose prose-lg dark:prose-invert max-w-none
+                  prose-headings:font-semibold
+                  prose-h1:text-2xl prose-h1:mt-0 prose-h1:mb-6 prose-h1:text-zinc-900 dark:prose-h1:text-zinc-50
+                  prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-zinc-900 dark:prose-h2:text-zinc-50 prose-h2:font-semibold
+                  prose-h3:text-base prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-zinc-900 dark:prose-h3:text-zinc-100 prose-h3:font-semibold
+                  first:prose-headings:mt-0
+                  prose-p:my-3 prose-p:leading-7 prose-p:text-zinc-600 dark:prose-p:text-zinc-400
+                  prose-ul:my-4 prose-ul:space-y-2
+                  prose-li:my-0 prose-li:text-zinc-600 dark:prose-li:text-zinc-400 prose-li:leading-7
+                  prose-strong:font-medium prose-strong:text-zinc-900 dark:prose-strong:text-zinc-100
+                  prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline">
                   {msg.role === 'assistant' ? (
                     <ReactMarkdown remarkPlugins={[remarkGfm]}>
                       {msg.content}
