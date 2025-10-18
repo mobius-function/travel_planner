@@ -34,7 +34,8 @@ IMPORTANT FORMATTING RULES:
 - Add blank lines between list items when each item has multiple lines
 - Use proper markdown formatting with ## for main sections and ### for subsections
 - Keep paragraphs short and separated by blank lines
-- Format lists clearly with proper spacing`,
+- Format lists clearly with proper spacing
+- Do NOT use emojis in your responses`,
       },
       ...(history || []),
       {
