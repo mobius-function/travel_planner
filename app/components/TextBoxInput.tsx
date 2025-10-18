@@ -10,14 +10,27 @@ export default function TextBoxInput() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (autoScrollEnabled) {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
+
+  // Detect when user manually scrolls
+  useEffect(() => {
+    const handleScroll = () => {
+      setAutoScrollEnabled(false);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, loading]);
+  }, [messages, loading, autoScrollEnabled]);
 
   const handleSubmit = async () => {
     if (input.trim()) {
@@ -122,7 +135,7 @@ export default function TextBoxInput() {
                     {msg.role === 'user' ? 'U' : 'AI'}
                   </span>
                 </div>
-                <div className="flex-1 prose prose-lg dark:prose-invert max-w-none
+                <div className="flex-1 prose dark:prose-invert max-w-none
                   prose-headings:font-semibold
                   prose-h1:text-2xl prose-h1:mt-0 prose-h1:mb-6 prose-h1:text-zinc-900 dark:prose-h1:text-zinc-50
                   prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-zinc-900 dark:prose-h2:text-zinc-50 prose-h2:font-semibold
