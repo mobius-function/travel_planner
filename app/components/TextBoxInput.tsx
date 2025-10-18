@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Message } from '@/app/types/chat';
+import ScrollButton from './ScrollButton';
 
 export default function TextBoxInput() {
   const [input, setInput] = useState('');
@@ -64,7 +65,6 @@ export default function TextBoxInput() {
         // Handle streaming response
         const reader = res.body?.getReader();
         const decoder = new TextDecoder();
-        let assistantMessage = '';
 
         // Add empty assistant message that we'll update
         setMessages([...newMessages, { role: 'assistant', content: '' }]);
@@ -83,9 +83,16 @@ export default function TextBoxInput() {
                 try {
                   const data = JSON.parse(line.slice(6));
                   if (data.content) {
-                    assistantMessage += data.content;
-                    // Update the last message with accumulated content
-                    setMessages([...newMessages, { role: 'assistant', content: assistantMessage }]);
+                    // Update only the last message using functional update
+                    setMessages(prev => {
+                      const updated = [...prev];
+                      const lastIndex = updated.length - 1;
+                      updated[lastIndex] = {
+                        ...updated[lastIndex],
+                        content: updated[lastIndex].content + data.content
+                      };
+                      return updated;
+                    });
                   }
                 } catch (e) {
                   // Skip invalid JSON
@@ -110,53 +117,24 @@ export default function TextBoxInput() {
 
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6">
-      {/* Scroll to top button */}
+      {/* Scroll buttons */}
       {messages.length > 0 && (
-        <button
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className="fixed top-8 right-8 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50"
-          aria-label="Scroll to top"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 19V5M5 12l7-7 7 7" />
-          </svg>
-        </button>
+        <ScrollButton
+          direction="up"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="top-8 right-8"
+        />
       )}
 
-      {/* Scroll to bottom button */}
       {!autoScrollEnabled && (
-        <button
+        <ScrollButton
+          direction="down"
           onClick={() => {
             setAutoScrollEnabled(true);
             scrollToBottom();
           }}
-          className="fixed bottom-24 right-8 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50"
-          aria-label="Scroll to bottom"
-        >
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M12 5v14M19 12l-7 7-7-7" />
-          </svg>
-        </button>
+          className="bottom-24 right-8"
+        />
       )}
 
       {/* Chat History */}
