@@ -122,7 +122,7 @@ export default function TextBoxInput() {
         <ScrollButton
           direction="up"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="top-8 right-8"
+          className="top-8 left-8"
         />
       )}
 
@@ -133,7 +133,7 @@ export default function TextBoxInput() {
             setAutoScrollEnabled(true);
             scrollToBottom();
           }}
-          className="bottom-24 right-8"
+          className="bottom-8 left-8"
         />
       )}
 
