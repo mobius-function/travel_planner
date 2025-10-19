@@ -12,6 +12,7 @@ export default function TextBoxInput() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
   const [itinerary, setItinerary] = useState<string>('');
 
@@ -21,14 +22,21 @@ export default function TextBoxInput() {
     }
   };
 
+  const scrollToTop = () => {
+    scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Detect when user manually scrolls
   useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
     const handleScroll = () => {
       setAutoScrollEnabled(false);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -212,12 +220,12 @@ export default function TextBoxInput() {
     <div className="h-screen overflow-hidden">
       {/* Chat section - Centered */}
       <div className="w-full max-w-3xl mx-auto flex flex-col h-full overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-4 space-y-6">
+        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 space-y-6">
           {/* Scroll buttons */}
           {messages.length > 0 && (
             <ScrollButton
               direction="up"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onClick={scrollToTop}
               className="top-8 left-8"
             />
           )}
