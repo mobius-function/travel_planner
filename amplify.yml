@@ -6,6 +6,7 @@ frontend:
         - npm ci
     build:
       commands:
+        - env | grep -E 'OPENROUTER|NEXT_PUBLIC' || true
         - npm run build
   artifacts:
     baseDirectory: .next
@@ -15,3 +16,8 @@ frontend:
     paths:
       - node_modules/**/*
       - .next/cache/**/*
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=0, must-revalidate'
