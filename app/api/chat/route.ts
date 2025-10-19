@@ -187,10 +187,16 @@ Would you like me to modify anything?
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      console.error('OpenRouter API error:', error);
+      let errorDetails = '';
+      try {
+        const error = await response.json();
+        console.error('OpenRouter API error:', error);
+        errorDetails = error.error?.message || JSON.stringify(error);
+      } catch (e) {
+        errorDetails = response.statusText;
+      }
       return NextResponse.json(
-        { error: 'Failed to get response from AI model' },
+        { error: `OpenRouter API error (${response.status}): ${errorDetails}` },
         { status: response.status }
       );
     }
@@ -258,8 +264,9 @@ Would you like me to modify anything?
     });
   } catch (error) {
     console.error('API error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to get response from AI model' },
+      { error: `Server error: ${errorMessage}` },
       { status: 500 }
     );
   }
