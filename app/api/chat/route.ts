@@ -11,6 +11,7 @@ export async function POST(request: Request) {
 
     if (!process.env.OPENROUTER_API_KEY) {
       console.error('OPENROUTER_API_KEY is not set');
+      console.error('Available env vars:', Object.keys(process.env).filter(key => key.includes('OPEN') || key.includes('NEXT')));
       return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
     }
 
