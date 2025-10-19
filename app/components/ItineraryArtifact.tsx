@@ -14,10 +14,10 @@ export default function ItineraryArtifact({ content }: ItineraryArtifactProps) {
   if (!content) return null;
 
   if (isMinimized) {
-    // Minimized state - show at bottom
+    // Minimized state - show at bottom-left
     return (
-      <div className="fixed bottom-0 right-0 w-80 z-50 m-4">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white px-4 py-3 rounded-lg shadow-2xl cursor-pointer hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-800 dark:hover:to-blue-900 transition-all"
+      <div className="fixed bottom-0 left-0 z-50 m-4" style={{ width: '220px' }}>
+        <div className="bg-gradient-to-r from-zinc-800 to-zinc-900 dark:from-zinc-700 dark:to-zinc-800 text-white px-4 py-3 rounded-lg shadow-2xl cursor-pointer hover:from-zinc-700 hover:to-zinc-800 dark:hover:from-zinc-600 dark:hover:to-zinc-700 transition-all"
           onClick={() => setIsMinimized(false)}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -52,8 +52,8 @@ export default function ItineraryArtifact({ content }: ItineraryArtifactProps) {
   }
 
   return (
-    <div className="fixed right-0 top-0 h-screen w-full lg:w-2/5 z-40 flex flex-col shadow-2xl">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white px-6 py-4">
+    <div className="fixed left-0 top-0 h-screen w-full lg:w-2/5 z-40 flex flex-col shadow-2xl">
+      <div className="bg-gradient-to-r from-zinc-800 to-zinc-900 dark:from-zinc-700 dark:to-zinc-800 text-white px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <svg
@@ -71,12 +71,12 @@ export default function ItineraryArtifact({ content }: ItineraryArtifactProps) {
               <h2 className="text-xl font-bold">
                 Travel Itinerary
               </h2>
-              <p className="text-blue-100 text-sm mt-1">Day-by-day travel plan</p>
+              <p className="text-zinc-300 dark:text-zinc-400 text-sm mt-1">Day-by-day travel plan</p>
             </div>
           </div>
           <button
             onClick={() => setIsMinimized(true)}
-            className="hover:bg-blue-800 dark:hover:bg-blue-900 p-2 rounded-lg transition-colors"
+            className="hover:bg-zinc-700 dark:hover:bg-zinc-600 p-2 rounded-lg transition-colors"
             aria-label="Minimize itinerary"
           >
             <svg

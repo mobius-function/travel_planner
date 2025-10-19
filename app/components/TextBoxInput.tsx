@@ -217,16 +217,16 @@ export default function TextBoxInput() {
   };
 
   return (
-    <div className="h-screen overflow-hidden">
-      {/* Chat section - Centered */}
-      <div className="w-full max-w-3xl mx-auto flex flex-col h-full overflow-hidden">
-        <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-4 space-y-6">
+    <div className="h-screen overflow-hidden flex flex-col">
+      {/* Scrollable container - full width */}
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto">
+        <div className="w-full max-w-3xl mx-auto p-4 space-y-6">
           {/* Scroll buttons */}
           {messages.length > 0 && (
             <ScrollButton
               direction="up"
               onClick={scrollToTop}
-              className="top-8 left-8"
+              className="top-8 right-8"
             />
           )}
 
@@ -237,7 +237,7 @@ export default function TextBoxInput() {
                 setAutoScrollEnabled(true);
                 scrollToBottom();
               }}
-              className="bottom-8 left-8"
+              className="bottom-24 right-8"
             />
           )}
 
@@ -315,9 +315,11 @@ export default function TextBoxInput() {
           {/* Scroll anchor */}
           <div ref={messagesEndRef} />
         </div>
+      </div>
 
-        {/* Input Box - Fixed at bottom */}
-        <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-900">
+      {/* Input Box - Fixed at bottom */}
+      <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-900">
+        <div className="w-full max-w-3xl mx-auto">
           <div className="relative bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200">
             <textarea
               value={input}

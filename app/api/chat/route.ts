@@ -176,7 +176,7 @@ Would you like me to modify anything?
         model: 'deepseek/deepseek-chat',
         messages: conversationMessages,
         temperature: 0.7,
-        max_tokens: 1024,
+        max_tokens: 2048,
         stream: true,
       }),
     });
