@@ -4,9 +4,12 @@ frontend:
     preBuild:
       commands:
         - npm ci
+        - echo "Checking environment variables..."
+        - env | grep -E 'OPENROUTER|NEXT_PUBLIC' || echo "No OPENROUTER or NEXT_PUBLIC vars found"
     build:
       commands:
-        - env | grep -E 'OPENROUTER|NEXT_PUBLIC' || true
+        - echo "Building with environment variables..."
+        - export OPENROUTER_API_KEY="${OPENROUTER_API_KEY}"
         - npm run build
   artifacts:
     baseDirectory: .next
