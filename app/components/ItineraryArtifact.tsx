@@ -52,7 +52,7 @@ export default function ItineraryArtifact({ content }: ItineraryArtifactProps) {
   }
 
   return (
-    <div className="h-full flex flex-col w-full">
+    <div className="fixed right-0 top-0 h-screen w-full lg:w-2/5 z-40 flex flex-col shadow-2xl">
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-700 dark:to-blue-800 text-white px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -93,7 +93,7 @@ export default function ItineraryArtifact({ content }: ItineraryArtifactProps) {
           </button>
         </div>
       </div>
-      <div className="flex-1 bg-white dark:bg-zinc-900 shadow-xl overflow-y-auto p-6">
+      <div className="flex-1 bg-white dark:bg-zinc-900 shadow-xl overflow-y-auto p-6 border-l border-zinc-200 dark:border-zinc-800">
         <div className="prose dark:prose-invert max-w-none
           prose-headings:font-semibold
           prose-h2:text-xl prose-h2:mt-0 prose-h2:mb-4 prose-h2:text-blue-900 dark:prose-h2:text-blue-300 prose-h2:border-b prose-h2:border-blue-200 dark:prose-h2:border-blue-900 prose-h2:pb-2

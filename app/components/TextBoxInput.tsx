@@ -209,9 +209,9 @@ export default function TextBoxInput() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Chat section - Left side */}
-      <div className={`${itinerary ? 'w-full lg:w-1/2' : 'w-full max-w-3xl mx-auto'} flex flex-col overflow-hidden`}>
+    <div className="h-screen overflow-hidden">
+      {/* Chat section - Centered */}
+      <div className="w-full max-w-3xl mx-auto flex flex-col h-full overflow-hidden">
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {/* Scroll buttons */}
           {messages.length > 0 && (
@@ -363,11 +363,9 @@ export default function TextBoxInput() {
         </div>
       </div>
 
-      {/* Itinerary Artifact - Right side */}
+      {/* Itinerary Artifact - Overlay/Minimized */}
       {itinerary && itinerary.trim().length > 0 && (
-        <div className="hidden lg:flex w-1/2 border-l border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
-          <ItineraryArtifact content={itinerary} />
-        </div>
+        <ItineraryArtifact content={itinerary} />
       )}
     </div>
   );
