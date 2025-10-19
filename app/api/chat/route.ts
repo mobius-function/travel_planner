@@ -9,6 +9,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
     }
 
+    if (!process.env.OPENROUTER_API_KEY) {
+      console.error('OPENROUTER_API_KEY is not set');
+      return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
+    }
+
     // Get current date
     const today = new Date().toLocaleDateString('en-US', {
       weekday: 'long',
