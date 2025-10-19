@@ -67,7 +67,16 @@ export default function TextBoxInput() {
         });
 
         if (!res.ok) {
-          setMessages([...newMessages, { role: 'assistant', content: 'Error: Failed to get response from AI model' }]);
+          let errorMessage = 'Error: Failed to get response from AI model';
+          try {
+            const errorData = await res.json();
+            if (errorData.error) {
+              errorMessage = `Error: ${errorData.error}`;
+            }
+          } catch (e) {
+            // Use default error message
+          }
+          setMessages([...newMessages, { role: 'assistant', content: errorMessage }]);
           setLoading(false);
           return;
         }
