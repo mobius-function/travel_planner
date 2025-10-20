@@ -9,8 +9,8 @@ frontend:
     build:
       commands:
         - echo "Building with environment variables..."
-        - env | grep -e OPENROUTER_API_KEY >> .env.production
-        - env | grep -e NEXT_PUBLIC_ >> .env.production
+        - env | grep -e OPENROUTER_API_KEY >> .env.production || true
+        - env | grep -e NEXT_PUBLIC_ >> .env.production || true
         - npm run build
   artifacts:
     baseDirectory: .next
