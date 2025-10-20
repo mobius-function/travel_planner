@@ -9,7 +9,8 @@ frontend:
     build:
       commands:
         - echo "Building with environment variables..."
-        - export OPENROUTER_API_KEY="${OPENROUTER_API_KEY}"
+        - env | grep -e OPENROUTER_API_KEY >> .env.production
+        - env | grep -e NEXT_PUBLIC_ >> .env.production
         - npm run build
   artifacts:
     baseDirectory: .next
